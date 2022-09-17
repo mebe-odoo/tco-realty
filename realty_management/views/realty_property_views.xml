@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="realty_property_form" model="ir.ui.view">
+    <field name="name">realty.property.form</field>
+    <field name="model">realty.property</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <div class="oe_title" colspan="4">
+            <h1>
+              <field name="name" />
+            </h1>
+          </div>
+          <group>
+            <group>
+              <field name="construction_date" />
+              <field name="rent" />
+              <field name="parking_spots" />
+              <field name="surface" />
+            </group>
+            <group>
+              <field name="is_furnished" />
+              <field name="is_available" />
+              <field name="is_rented" />
+            </group>
+          </group>
+          <notebook>
+            <page name="rooms" string="Rooms">
+              <field name="room_ids" nolabel="1">
+                <tree editable="bottom">
+                  <field name="name" />
+                  <field name="surface" />
+                </tree>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="realty_property_tree" model="ir.ui.view">
+    <field name="name">realty.property.tree</field>
+    <field name="model">realty.property</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name" />
+        <field name="construction_date" />
+        <field name="rent" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="realty_property_act_window" model="ir.actions.act_window">
+    <field name="name">Properties</field>
+    <field name="res_model">realty.property</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[]</field>
+    <field name="context">{}</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Create a new Property
+      </p>
+    </field>
+  </record>
+
+  <record id="product_template_action" model="ir.actions.act_window">
+    <field name="name">Products</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">product.template</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="view_id" ref="product.product_template_kanban_view" />
+    <field name="context">{"default_detailed_type": "rent"}</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+          Create a new product
+      </p>
+      <p>
+          You must define a product for everything you sell or purchase,
+          whether it's a storable product, a consumable or a service.
+      </p>
+    </field>
+  </record>
+
+  <menuitem
+    id="realty_management_root_menu"
+    name="Realty Management"
+    sequence="10" />
+
+  <menuitem
+    id="realty_property_root_menu"
+    name="Properties"
+    action="realty_property_act_window"
+    parent="realty_management_root_menu"
+    sequence="20" />
+
+  <menuitem
+    id="menu_product_template_action"
+    name="Products"
+    action="product_template_action"
+    parent="realty_management_root_menu"
+    sequence="30" />
+
+</odoo>

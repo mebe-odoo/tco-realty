@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_realty_property,access_realty_property,model_realty_property,base.group_user,1,1,1,1
+access_realty_property_room,access_realty_property_room,model_realty_property_room,base.group_user,1,1,1,1
+access_realty_tenancy,access_realty_tenancy,model_realty_tenancy,base.group_user,1,1,1,1
+access_realty_tenancy_line,access_realty_tenancy_line,model_realty_tenancy_line,base.group_user,1,1,1,1
