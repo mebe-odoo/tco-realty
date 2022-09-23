@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="property_page">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <h1>Property: <t t-out="property_id.name"/></h1>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

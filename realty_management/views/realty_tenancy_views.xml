@@ -8,7 +8,6 @@
       <form>
         <header>
           <button class="btn btn-secondary" confirm="Are you sure you wish to cancel?" string="Cancel" type="object" name="action_cancel" attrs="{'invisible': [('state', '!=', 'active')]}" />
-          <button class="btn btn-primary" string="Confirm" type="object" name="action_confirm" attrs="{'invisible': [('state', '!=', 'draft')]}" />
           <field name="state" widget="statusbar" statusbar_visible="active,done" />
         </header>
         <sheet>
@@ -24,6 +23,7 @@
           <group>
             <group>
               <field name="property_id" />
+              <field name="user_id" groups="realty_management.tenancy_manager_group"/>
               <field name="date_start" />
               <field name="date_end" />
             </group>
@@ -58,6 +58,19 @@
         </sheet>
       </form>
     </field>
+  </record>
+
+  <record id="realty_tenancy_managers_form" model="ir.ui.view">
+    <field name="name">realty.tenancy.managers.form</field>
+    <field name="model">realty.tenancy</field>
+    <field name="inherit_id" ref="realty_tenancy_form"/>
+    <field name="groups_id" eval="[(4, ref('realty_management.tenancy_manager_group'))]"/>
+    <field name="arch" type="xml">
+      <xpath expr="//button[@name='action_cancel']" position="before">
+        <button class="btn btn-primary" string="Confirm" type="object" name="action_confirm" attrs="{'invisible': [('state', '!=', 'draft')]}" />
+      </xpath>
+    </field>
+
   </record>
 
   <record id="realty_tenancy_tree" model="ir.ui.view">

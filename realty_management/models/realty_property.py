@@ -25,6 +25,13 @@ class RealtyProperty(models.Model):
     is_available = fields.Boolean("Available for Rent", compute="_compute_rent_status")
     is_rented = fields.Boolean("Is Rented", compute="_compute_rent_status")
 
+    def action_open_real_portal(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/property/' + str(self.id),
+            'target': '_blank'
+        }
+
     def _compute_rent_status(self):
         for property_id in self:
             # Solution 1: We query the realty_tenancy table by using the Search ORM method and passing a domain

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record id='tenancy_sequence' model='ir.sequence'>
+            <field name='name'>Realty Tenancy</field>
+            <field name='code'>tenancy.sequence</field>
+            <field name='prefix'>TEN/%(year)s/</field>
+            <field name='padding' eval='4' />
+        </record>
+
+    </data>
+</odoo>

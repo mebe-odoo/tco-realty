@@ -10,7 +10,9 @@ class RealtyTenancy(models.Model):
     _description = 'Realty Tenancy'
     _inherit = 'realty.mixin'
 
-    name = fields.Char("Name", compute="_compute_tenancy_name")
+    name = fields.Char("Name", default='/')
+
+    user_id = fields.Many2one("res.users", string="Responsible", default=lambda self: self.env.user)
 
     property_id = fields.Many2one("realty.property", required=True)
     tenant_ids = fields.Many2many("res.partner", string="Tenants")
@@ -56,7 +58,10 @@ class RealtyTenancy(models.Model):
             raise UserError(_("Set at least one Tenancy Line with a Rent product"))
         if not self.tenant_ids:
             raise UserError(_("Set at least one Tenant on your Tenancy"))
+        if not self.env.user.has_group('realty_management.tenancy_manager_group'):
+            raise UserError(_("Only Tenancy Managers can Confirm Tenancies"))
         self.state = 'active'
+        self.name = self.env['ir.sequence'].next_by_code('tenancy.sequence')
 
     def action_terminate(self):
         if self.state != 'active':

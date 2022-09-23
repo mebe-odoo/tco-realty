@@ -23,13 +23,17 @@
 
     # always loaded
     'data': [
+        'security/realty_management_security.xml',
         'security/ir.model.access.csv',
         'data/ir_cron_data.xml',
         'data/ir_actions.xml',
+        'data/ir_sequence.xml',
         'views/realty_property_views.xml',
         'views/realty_tenancy_views.xml',
         'views/res_partner_views.xml',
+        'views/templates.xml',
         'reports/report_realty_property.xml',
+        'reports/report_realty_tenancy.xml',
     ],
     'assets': {
         'web.report_assets_common': [
