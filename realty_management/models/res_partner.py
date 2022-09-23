@@ -8,4 +8,4 @@ class ResPartner(models.Model):
 
     date_of_birth = fields.Date("Date of birth")
     place_of_birth = fields.Char("Place of birth")
-    Nationality = fields.Char("Nationality")
+    nationality = fields.Char("Nationality")

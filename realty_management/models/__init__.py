@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from . import realty_mixin
 from . import realty_property
 from . import realty_property_room
 from . import realty_tenancy

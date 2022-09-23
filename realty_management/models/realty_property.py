@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class RealtyProperty(models.Model):
     _name = 'realty.property'
     _description = 'Realty Property'
+    _inherit = 'realty.mixin'
 
-    name = fields.Char("Name", required=True)
+    name = fields.Char("Name", required=True, translate=True)
     construction_date = fields.Date("Construction Date", required=True)
 
     company_id = fields.Many2one("res.company", default=lambda self: self.env.company)

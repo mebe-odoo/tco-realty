@@ -25,8 +25,15 @@
     'data': [
         'security/ir.model.access.csv',
         'data/ir_cron_data.xml',
+        'data/ir_actions.xml',
         'views/realty_property_views.xml',
         'views/realty_tenancy_views.xml',
         'views/res_partner_views.xml',
+        'reports/report_realty_property.xml',
     ],
+    'assets': {
+        'web.report_assets_common': [
+            'realty_management/static/src/scss/report.scss',
+        ],
+    }
 }

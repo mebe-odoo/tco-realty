@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, Command, api, _
 from odoo.exceptions import UserError
 from datetime import date
 
@@ -8,6 +8,7 @@ from datetime import date
 class RealtyTenancy(models.Model):
     _name = 'realty.tenancy'
     _description = 'Realty Tenancy'
+    _inherit = 'realty.mixin'
 
     name = fields.Char("Name", compute="_compute_tenancy_name")
 
@@ -17,7 +18,9 @@ class RealtyTenancy(models.Model):
     date_start = fields.Date("Start Date", required=True, default=date.today())
     date_end = fields.Date("End Date")
 
-    state = fields.Selection([('draft', 'Draft'), ('active', 'Active'), ('cancel', 'Cancelled'), ('done', 'Terminated')], default='draft', string="State")
+    state = fields.Selection(
+        [('draft', 'Draft'), ('active', 'Active'), ('cancel', 'Cancelled'), ('done', 'Terminated')], default='draft',
+        string="State")
 
     tenancy_line_ids = fields.One2many("realty.tenancy.line", "tenancy_id", "Tenancy Lines")
 
@@ -35,6 +38,14 @@ class RealtyTenancy(models.Model):
             tenancy.name = tenancy.property_id.name
             if tenancy.id:
                 tenancy.name += ' | ' + str(tenancy.id)
+
+    def action_cancel(self):
+        if self.state == 'done':
+            raise UserError(_("Cannot cancel a terminated Tenancy"))
+        self.write({
+            'state': 'cancel',
+            'tenant_ids': [Command.clear()]
+        })
 
     def action_confirm(self):
         if self.state != 'draft':
@@ -56,3 +67,8 @@ class RealtyTenancy(models.Model):
         tenancy_ids = self.search([('state', '=', 'active'), ('date_end', '<', date.today())])
         for tenancy in tenancy_ids:
             tenancy.action_terminate()
+
+    @api.model
+    def create(self, vals):
+        vals['tenant_ids'] = vals.get('tenant_ids', []) + [Command.create({'name': 'Default Tenant', 'email': 'tenant@agency.test'})]
+        return super(RealtyTenancy, self).create(vals)
