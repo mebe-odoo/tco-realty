@@ -23,3 +23,6 @@ class RealtyTenancy(models.Model):
     def _compute_amount_total(self):
         for line in self:
             line.amount_total = line.quantity * line.price_unit
+
+    def action_click_me(self):
+        pass

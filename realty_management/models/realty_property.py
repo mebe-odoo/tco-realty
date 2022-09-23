@@ -26,5 +26,10 @@ class RealtyProperty(models.Model):
 
     def _compute_rent_status(self):
         for property_id in self:
+            # Solution 1: We query the realty_tenancy table by using the Search ORM method and passing a domain
+            # This is usually more efficient than using filtered, if you have a large collection of records
+            active_tenancies = self.env['realty.tenancy'].search([('state', '=', 'active'), ('id', 'in', property_id.tenancy_ids.ids)], limit=1)
+            property_id.is_rented = bool(active_tenancies)
+            # Solution 2: We use a the filtered ORM method to filter our tenancy_ids
             property_id.is_rented = bool(property_id.tenancy_ids.filtered(lambda t: t.state == 'active'))
             property_id.is_available = not property_id.is_rented

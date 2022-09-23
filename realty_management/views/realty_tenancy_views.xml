@@ -8,7 +8,7 @@
       <form>
         <header>
           <button class="btn btn-primary" string="Confirm" type="object" name="action_confirm" attrs="{'invisible': [('state', '!=', 'draft')]}" />
-          <field name="state" widget="statusbar" states="draft,active,done" />
+          <field name="state" widget="statusbar" statusbar_visible="active,done" />
         </header>
         <sheet>
           <div class="oe_title" colspan="4">
@@ -31,6 +31,12 @@
                   <field name="quantity" />
                   <field name="price_unit" />
                   <field name="amount_total" />
+                  <!--  Make Button visible only if in edit more
+                  <button class="btn btn-primary o_edit_only" icon="fa-flag" type="object" name="action_click_me"
+                          attrs="{'invisible': [('amount_total', '&lt;', 100)]}" string="Edit Me"/> -->
+                  <!--  Make Button visible only if in read more
+                  <button class="btn btn-primary o_read_only" icon="fa-flag" type="object" name="action_click_me"
+                          attrs="{'invisible': [('amount_total', '&lt;', 100)]}" string="Read Me"/> -->
                 </tree>
               </field>
             </page>

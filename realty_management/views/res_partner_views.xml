@@ -9,6 +9,7 @@
             <xpath expr="//field[@name='website']" position="after">
                 <field name="date_of_birth" />
                 <field name="place_of_birth" />
+                <field name="nationality" />
             </xpath>
         </field>
     </record>

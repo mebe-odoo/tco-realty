@@ -71,6 +71,7 @@
     <field name="res_model">product.template</field>
     <field name="view_mode">kanban,tree,form</field>
     <field name="view_id" ref="product.product_template_kanban_view" />
+    <!--  Set the default value for the detailed_type field to 'rent' using the context on the action   -->
     <field name="context">{"default_detailed_type": "rent"}</field>
     <field name="help" type="html">
       <p class="o_view_nocontent_smiling_face">
